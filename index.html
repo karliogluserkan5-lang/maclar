@@ -1,0 +1,23 @@
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>⚽ CANLI MAÇLAR</h1>
+    <div id="sonuc">Yükleniyor...</div>
+    <script>
+        fetch('https://v3.football.api-sports.io/fixtures?date=2025-02-20', {
+            headers: { 'x-apisports-key': 'd5aeb2db9f387b44e0308ecf54d36c52' }
+        })
+        .then(r => r.json())
+        .then(d => {
+            let html = '';
+            d.response.forEach(m => {
+                html += `<div>${m.teams.home.name} - ${m.teams.away.name} : ${m.goals.home ?? 0}-${m.goals.away ?? 0}</div>`;
+            });
+            document.getElementById('sonuc').innerHTML = html || 'Maç yok';
+        })
+        .catch(e => document.getElementById('sonuc').innerHTML = 'Hata: ' + e.message);
+    </script>
+</body>
+</html>
+```
